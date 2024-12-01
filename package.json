@@ -4,17 +4,22 @@
   "description": "Rishi's Blog",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && cp -R public dist && node dist/app.js"
   },
   "author": "Rishi Singh",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^4.21.1",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.11.5",
-    "sequelize": "^6.37.5"
+    "sequelize": "^6.37.5",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/multer": "^1.4.12",
     "@types/node": "^22.10.1",
     "@types/sequelize": "^4.28.20",
     "nodemon": "^3.1.7"
