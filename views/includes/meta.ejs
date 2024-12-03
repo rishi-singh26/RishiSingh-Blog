@@ -1,0 +1,33 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' ; frame-src 'self' https://docs.google.com/; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://cdn.jsdelivr.net https://raw.githubusercontent.com">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="canonical" key="canonical" href="<%= canonicalUrl %>" />
+    <meta content="<%= pageDescription %>" name="description" />
+    <meta content="<%= title %>" property="og:title" />
+    <meta content="<%= pageDescription %>" property="og:description" />
+    <meta content="<%= thumbnailUrl %>" property="og:image" />
+    <meta content="<%= title %>" property="twitter:title" />
+    <meta content="<%= pageDescription %>" property="twitter:description" />
+    <meta content="<%= thumbnailUrl %>" property="twitter:image" />
+    <meta property="og:type" content="website" />
+    <meta content="summary_large_image" name="twitter:card" />
+
+    <link href="https://cdn.jsdelivr.net/gh/rishi-singh26/Portfolio/assets/FavIcon.png" rel="shortcut icon"
+        type="image/x-icon" type="image/png" />
+    <link href="https://cdn.jsdelivr.net/gh/rishi-singh26/Portfolio/assets/Logo.png" rel="apple-touch-icon" />
+
+    <% if (path === '/blog') { %>
+        <link rel="stylesheet" href="/css/blog.css">
+    <% } else { %>
+        <link rel="stylesheet" href="/css/main.css">
+    <% } %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>

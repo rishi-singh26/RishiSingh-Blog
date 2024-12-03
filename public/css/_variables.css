@@ -1,0 +1,13 @@
+:root {
+    --accent-color: #DFFD9B;
+    --semi-dark-accent-color: #7aae00;
+    --dark-accent-color: #97C038;
+    --background: #fff;
+    --grey: #898989;
+    --black: #000;
+
+    --border: #d7d7d7;
+    --table-border: #cccccc;
+    --code-bloc-background: #e9ecef;
+    --header-background: #ffffff66;
+}

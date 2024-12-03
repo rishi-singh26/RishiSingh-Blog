@@ -145,100 +145,17 @@
     }
 }
 
-.hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* width: 100%; */
-    height: 100vh;
-    gap: 20px;
-    padding: 0px 400px;
-
-    .hero-header {
-        text-align: center;
-        font-size: 128px;
-    }
-
-    .hero-content {
-        text-align: center;
-        font-size: 48px;
-
-        .hero-sub-content {
-            color: var(--dark-accent-color);
-        }
-    }
-}
-
 .container {
+    margin-top: 200px;
     width: 100%;
 
     .padded-container {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
         justify-content: center;
         gap: 60px;
         padding: 0px 350px;
-
-        .tags {
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-
-            .tag {
-                border-radius: 20px;
-                border: 0.5px solid var(--grey);
-                padding: 0px 10px;
-                font-size: 18px;
-                background-color: transparent;
-            }
-
-            .tag[selected] {
-                border: 0.5px solid var(--dark-accent-color);
-                background-color: var(--dark-accent-color);
-                color: var(--background);
-            }
-        }
-
-        .card {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            gap: 30px;
-            width: 100%;
-            text-decoration: none;
-
-            .card-content {
-                display: flex;
-                flex-direction: column;
-                align-items: start;
-                justify-content: flex-start;
-                gap: 10px;
-
-                .caption {
-                    font-size: 18px;
-                    font-family: 'Courier New', Courier, monospace;
-                    color: var(--dark-accent-color);
-                }
-
-                .card-title {
-                    font-size: 30px;
-                }
-
-                .card-subtitle {
-                    font-size: 22px;
-                }
-            }
-
-            .card-image {
-                max-width: 300px;
-                max-height: 300px;
-            }
-        }
 
         .footer-container {
             padding: 100px 0px;
@@ -288,20 +205,6 @@
     }
 }
 
-@media (max-width: 1660px) {
-    .hero {
-        padding: 0px 400px;
-
-        .hero-header {
-            font-size: 96px;
-        }
-
-        .hero-content {
-            font-size: 42px;
-        }
-    }
-}
-
 @media (max-width: 1500px) {
     .container {
         .padded-container {
@@ -311,10 +214,6 @@
 }
 
 @media (max-width: 1400px) {
-    .hero {
-        padding: 0px 300px;
-    }
-    
     .container {
         .padded-container {
             padding: 0px 250px;
@@ -323,18 +222,6 @@
 }
 
 @media (max-width: 1200px) {
-    .hero {
-        padding: 0px 250px;
-
-        .hero-header {
-            font-size: 84px;
-        }
-
-        .hero-content {
-            font-size: 36px;
-        }
-    }
-    
     .container {
         .padded-container {
             padding: 0px 220px;
@@ -347,64 +234,14 @@
         padding: 0px 20px;
     }
 
-    .hero {
-        padding: 0px 180px;
-
-        .hero-header {
-            font-size: 84px;
-        }
-
-        .hero-content {
-            font-size: 36px;
-        }
-    }
-    
     .container {
         .padded-container {
             padding: 0px 220px;
-
-            .card {
-                padding: 20px 20px;
-                gap: 15px;
-        
-                .card-image {
-                    max-width: 180px;
-                    max-height: 200px;
-                }
-        
-                .card-content {
-                    gap: 10px;
-                    
-                    .caption {
-                        font-size: 16px;
-                    }
-        
-                    .card-title {
-                        font-size: 24px;
-                    }
-        
-                    .card-subtitle {
-                        font-size: 18px;
-                    }
-                }
-            }
         }
     }
 }
 
 @media (max-width: 900px) {
-    .hero {
-        padding: 0px 150px;
-
-        .hero-header {
-            font-size: 64px;
-        }
-
-        .hero-content {
-            font-size: 34px;
-        }
-    }
-
     .container {
         .padded-container {
             padding: 0px 180px;
@@ -421,51 +258,9 @@
 }
 
 @media (max-width: 768px) {
-    .hero {
-        padding: 0px 20px;
-
-        .hero-header {
-            font-size: 56px;
-        }
-
-        .hero-content {
-            font-size: 34px;
-        }
-
-        .hero-btn {
-            font-size: 20px;
-        }
-    }
-
     .container {
         .padded-container {
             padding: 0px 120px;
-
-            .card {
-                padding: 10px 0px;
-                gap: 10px;
-        
-                .card-image {
-                    max-width: 120px;
-                    max-height: 180px;
-                }
-        
-                .card-content {
-                    gap: 10px;
-    
-                    .caption {
-                        font-size: 14px;
-                    }
-        
-                    .card-title {
-                        font-size: 20px;
-                    }
-        
-                    .card-subtitle {
-                        font-size: 16px;
-                    }
-                }
-            }
         }
     }
 }
@@ -490,32 +285,6 @@
     .container {
         .padded-container {
             padding: 0px 10px;
-
-            .card {
-                padding: 10px 0px;
-                gap: 20px;
-        
-                .card-image {
-                    max-width: 100px;
-                    max-height: 150px;
-                }
-        
-                .card-content {
-                    gap: 10px;
-    
-                    .caption {
-                        font-size: 12px;
-                    }
-        
-                    .card-title {
-                        font-size: 18px;
-                    }
-        
-                    .card-subtitle {
-                        font-size: 14px;
-                    }
-                }
-            }
         }
     }
 }
@@ -537,4 +306,63 @@ a:hover {
 .header-link {
     text-decoration: none;
     color: var(--black);
+}
+
+/* Article CSS START */
+table {
+    border: 1px solid var(--table-border);
+    /* Border for the table itself */
+    border-collapse: collapse;
+    /* Combine adjacent borders into a single line */
+    width: 100%;
+    /* Full width of the container */
+}
+
+th,
+td {
+    border: 1px solid var(--table-border);
+    /* Borders for table cells */
+    padding: 8px;
+    /* Adds space inside cells */
+    text-align: left;
+    /* Aligns text to the left */
+}
+
+h1 {
+    font-size: 44px;
+    color: #000;
+}
+
+h2 {
+    font-size: 38px;
+    color: #000;
+}
+
+h3 {
+    font-size: 32px;
+    color: #000;
+}
+
+code {
+    background: var(--code-bloc-background);
+    padding: 2px 4px;
+    border-radius: 3px;
+    width: 100%;
+}
+
+blockquote {
+    border-left: 5px solid #adb5bd;
+    padding-left: 10px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+hr {
+    border: 0.5px solid var(--table-border);
+}
+
+pre {
+    background-color: #EAECEF;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px;
 }

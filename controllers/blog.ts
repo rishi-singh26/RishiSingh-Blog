@@ -39,7 +39,7 @@ export const getBlogById = (
 ) => {
     res.render("blog", {
         title: "Blog Title",
-        path: "/blog/id",
+        path: "/blog",
         content: dummyHTML,
         // currentPage: page,
         // hasNextPage: page < totalPages,
@@ -47,5 +47,8 @@ export const getBlogById = (
         // nextPage: page + 1,
         // prevPage: page - 1,
         // lastPage: totalPages,
+        pageDescription: "Experienced software developer in the vibrant tech landscape of southern India, building innovative solutions with precision and passion. Explore my portfolio of impactful projects.",
+        canonicalUrl: "https://rishisingh.in/",
+        thumbnailUrl: "/images/BlogWebOGPoster.png",
     });
 };
