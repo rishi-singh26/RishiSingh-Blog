@@ -1,16 +1,23 @@
-type CustomResponseData = { message: string, statusCode: number, errorPath?: string[], data?: { [key: string]: string } }
-// const defaultCustomResponse: CustomResponseData = { message: '', statusCode: 0, errorPath: [], data: {} }
+type CustomResponseData = {
+  message: string,
+  statusCode: number,
+  errorPath?: (string | number)[],
+  data?: { [key: string]: any },
+  status?: boolean,
+}
 
 export class CustomResponse extends Error {
   statusCode: number;
-  errorPath: string[]; // when there is error in form fields, the name of the fields with error will be returned in this array
-  data: { [key: string]: string }
+  errorPath: (string | number)[]; // when there is error in form fields, the name of the fields with error will be returned in this array
+  data: { [key: string]: any };
+  status: boolean;
 
   constructor(data: CustomResponseData) {
     super(data.message);
     this.statusCode = data.statusCode;
     this.errorPath = data.errorPath ?? [];
     this.data = data.data ?? {};
+    this.status = data.status ?? false;
     Object.setPrototypeOf(this, CustomResponse.prototype);
   }
 

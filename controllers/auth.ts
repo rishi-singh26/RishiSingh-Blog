@@ -1,13 +1,11 @@
 import bcrypt from "bcryptjs";
-import { ZodError, ZodIssueCode } from "zod";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user";
 import Token from "../models/token";
-import { refreshTokenSchema } from "../schema/schema";
 import { AUTH_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../util/constants";
 import { NextFunction, Response, Request } from "express";
-import { CustomResponse } from "../util/custom_error";
+import { CustomResponse } from "../util/custom_response";
 import { StatusCodes } from "http-status-codes";
 
 const createAccessToken = (email: string, userId: string) =>
@@ -18,14 +16,13 @@ const createRefreshToken = (userId: string) =>
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        console.log(req.body);
-        
         const { email, password } = req.body;
         if (!email || !password) {
             const error = new CustomResponse({
                 message: "Enter a valid name, email and password.",
                 statusCode: StatusCodes.BAD_REQUEST,
-                errorPath: ["email", "password"]
+                errorPath: ["email", "password"],
+                status: false,
             });
             return next(error);
         }
@@ -35,7 +32,8 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
             const error = new CustomResponse({
                 message: "A user with this email could not be found.",
                 statusCode: StatusCodes.BAD_REQUEST,
-                errorPath: ["email"]
+                errorPath: ["email"],
+                status: false,
             });
             return next(error);
         }
@@ -45,7 +43,8 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
             const error = new CustomResponse({
                 message: "Incorrect password",
                 statusCode: StatusCodes.BAD_REQUEST,
-                errorPath: ["password"]
+                errorPath: ["password"],
+                status: false,
             });
             return next(error);
         }
@@ -54,14 +53,18 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         const refreshToken = createRefreshToken(user.id.toString());
         // create a new access and refresh token for each login
         await Token.create({ refreshToken, accessToken, userId: user.id });
-        res.status(200).json({
-            accessToken,
-            refreshToken,
-            user: { id: user.id, name: user.name, email: user.email },
-        });
+        res.status(StatusCodes.OK).json(new CustomResponse({
+            message: 'Login successful',
+            statusCode: StatusCodes.OK,
+            data: { accessToken, refreshToken, user: { id: user.id, name: user.name, email: user.email } },
+            status: true,
+        }));
     } catch (error: any) {
-        error.statusCode = error.statusCode ?? 500;
-        next(error);
+        next(new CustomResponse({
+            message: error.message,
+            statusCode: error.statusCode ?? StatusCodes.INTERNAL_SERVER_ERROR,
+            status: false,
+        }));
     }
 };
 
@@ -75,27 +78,39 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
         });
         // validate if there is no entry for this userId and refreshToken in DB
         if (!existingTokenData || (existingTokenData.refreshToken !== refreshToken)) {
-            res.status(403).json({ message: "Invalid refresh token" });
+            next(new CustomResponse({
+                message: "Invalid refresh token",
+                statusCode: StatusCodes.FORBIDDEN,
+                status: false,
+            }));
             return;
         }
         // Verify that a user for this refresh token exists
         const user = await User.findByPk(parsedRefreshToken.userId);
         if (!user) {
-            res.status(403).json({ message: "Invalid refresh token, user not found" });
-            return;
+            return next(new CustomResponse({
+                message: "Invalid refresh token, user not found",
+                statusCode: StatusCodes.FORBIDDEN,
+                status: false,
+            }));
         }
         // Generate new tokens
         const accessToken = createAccessToken(user.email, user.id.toString());
         const newRefreshToken = createRefreshToken(user.id.toString());
         // Update the existing tokens for the user session
-        await existingTokenData.update({
-            refreshToken: newRefreshToken,
-            accessToken,
-        });
-        res.json({ accessToken, refreshToken: newRefreshToken });
+        await existingTokenData.update({ refreshToken: newRefreshToken, accessToken });
+        res.status(StatusCodes.OK).json(new CustomResponse({
+            message: "Success",
+            statusCode: StatusCodes.OK,
+            data: { accessToken, refreshToken: newRefreshToken },
+            status: true,
+        }).toJson());
     } catch (error: any) {
-        error.statusCode = error.statusCode ?? 500;
-        next(error);
+        next(new CustomResponse({
+            message: error.message,
+            statusCode: error.statusCode ?? StatusCodes.INTERNAL_SERVER_ERROR,
+            status: false,
+        }));
     }
 };
 
@@ -106,7 +121,8 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
             const error = new CustomResponse({
                 message: "Enter a valid name, email and password.",
                 statusCode: StatusCodes.BAD_REQUEST,
-                errorPath: ["email", "password"]
+                errorPath: ["email", "password"],
+                status: false,
             });
             return next(error);
         }
@@ -116,17 +132,26 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
             const error = new CustomResponse({
                 message: "A user with this email already exists in the system.",
                 statusCode: StatusCodes.BAD_REQUEST,
-                errorPath: ["email"]
+                errorPath: ["email"],
+                status: false,
             });
             return next(error);
         }
 
         const passwordHash = await bcrypt.hash(password, 12);
         const user = await User.create({ name, email, password: passwordHash });
-        res.status(201).json({ message: "Signup successfull", userId: user.id });
+        res.status(StatusCodes.CREATED).json(new CustomResponse({
+            message: "Signup successfull",
+            statusCode: StatusCodes.CREATED,
+            data: { userId: user.id },
+            status: true,
+        }).toJson());
     } catch (error: any) {
-        error.statusCode = error.statusCode ?? 500;
-        next(error);
+        next(new CustomResponse({
+            message: error.message,
+            statusCode: error.statusCode ?? StatusCodes.INTERNAL_SERVER_ERROR,
+            status: false,
+        }));
     }
 };
 
@@ -137,14 +162,21 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
         const existingTokenData = await Token.findOne({
             where: { userId: validatedToken.userId, refreshToken },
         });
-        let statusCode = 200;
+        let statusCode = StatusCodes.OK;
         if (existingTokenData) {
             await existingTokenData.destroy();
-            statusCode = 410;
+            statusCode = StatusCodes.GONE;
         }
-        res.status(statusCode).json({ message: "Logged Out" });
+        res.status(statusCode).json(new CustomResponse({
+            message: "Logged Out",
+            statusCode: statusCode,
+            status: true,
+        }).toJson());
     } catch (error: any) {
-        error.httpStatusCode = 500;
-        next(error);
+        next(new CustomResponse({
+            message: error.message,
+            statusCode: error.statusCode ?? StatusCodes.INTERNAL_SERVER_ERROR,
+            status: false,
+        }));
     }
 };

@@ -3,21 +3,19 @@ import z, { ZodEffects, ZodObject, ZodSchema } from "zod";
 // const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 // const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
-export const postSchema = z.object({
-    title: z.string().min(10, "Post title must have minimum 10 characters").max(
-        120,
-        "Post title can have maximum 120 characters",
-    ),
-    content: z.string().min(10, "Post content must have minimum 10 characters")
-        .max(1000, "Post content can have maximim 100 characters"),
-    // image: z.any()
-    //     .refine((file) => {
-    //         console.log(file);
-    //         return file instanceof File;
-    //     }, { message: "Invalid file format" })
-    //     .refine((file) => file && file.originalname, { message: 'File is required' })
-    //     .refine((file) => file.size <= MAX_FILE_SIZE, { message: 'The image is too large. Please choose an image smaller than 5MB.' })
-    //     .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), { message: "Please upload a valid image file (JPEG, PNG, or WebP)." }),
+export const blogSchema = z.object({
+    title: z
+        .string()
+        .min(10, "Post title must have minimum 10 characters")
+        .max(120, "Post title can have maximum 120 characters"),
+    html: z
+        .string()
+        .min(10, "Post content must have minimum 10 characters")
+        .max(65500, "Post content can have maximim 65500 characters"),
+    thumbnailUrl: z.string().max(128), // /images/BlogWebOGPoster.png
+    description: z.string().max(256),
+    canonicalUrl: z.string().max(256),
+    isDraft: z.boolean({ message: 'Blog.draft can must be a boolean'}),
 });
 
 export const signupSchema: ZodEffects<ZodObject<any, any>> = z

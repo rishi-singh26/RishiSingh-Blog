@@ -5,14 +5,19 @@ import bodyParser from "body-parser";
 
 import 'dotenv/config'
 
-import sequelize from "./util/database";
-import { fileFilter, fileStorage } from "./util/file";
 import indexRoutes from "./routes/index";
 import authRoutes from "./routes/auth";
+import blogRoutes from "./routes/blog";
+
 import Blog from "./models/blog";
 import User from "./models/user";
 import Token from "./models/token";
-import { CustomResponse } from "./util/custom_error";
+
+import sequelize from "./util/database";
+import { fileFilter, fileStorage } from "./util/file";
+import { CustomResponse } from "./util/custom_response";
+
+import SocketIO from './socket';
 
 const app = express();
 
@@ -30,8 +35,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
-// app.use("/blog", blogRoutes);
-
+app.use("/blog", blogRoutes);
 app.use("/auth", authRoutes);
 app.use("/", indexRoutes);
 
@@ -53,7 +57,11 @@ User.hasOne(Token, { foreignKey: 'userId' });
 
 sequelize.sync()
     .then(() => {
-        app.listen(3000);
+        const server = app.listen(3000);
+        const io = SocketIO.init(server);
+        io.on('connection', socket => {
+            console.log('client connected');
+        })
     })
     .catch((err) => {
         console.log(err);
