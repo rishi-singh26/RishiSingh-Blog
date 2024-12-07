@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.get("/", IndexController.getIndex);
 
+router.get("/:blogId", IndexController.getBlogById);
+
 export default router;
