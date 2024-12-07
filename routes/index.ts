@@ -4,8 +4,8 @@ import * as IndexController from "../controllers/index";
 
 const router = express.Router();
 
-router.get("/", IndexController.getIndex);
+router.get("/", IndexController.getIndexPage);
 
-router.get("/:blogId", IndexController.getBlogById);
+router.get("/:blogId", IndexController.getBlogPageById);
 
 export default router;

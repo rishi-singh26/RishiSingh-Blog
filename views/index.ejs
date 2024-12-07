@@ -22,126 +22,21 @@
                     <button class="tag pointer">THOUGHTS</button>
                     <button class="tag pointer">AGRI</button>
                 </div> -->
-                <li class="card" itemscope itemtype ="https://schema.org/TechArticle">
-                    <div class="card-content">
-                        <p class="caption">Tag</p>
-                        <h2 class="card-title"><a href="/blog/123123" rel="noopener noreferrer" itemprop="title">This is the blog title and this is a long title this will take some space
-                        </a></h2>
-                        <p class="card-subtitle inter-400">This is the blog description and it is longer then the blog
-                            title</p>
-                        <p class="caption">12th Jun 2024 . 7 min . 2173 Views</p>
-                    </div>
-                    <div class="card-image">
-                        <img class="card-image"
-                            src="https://cdn.jsdelivr.net/gh/rishi-singh26/Portfolio/assets/WebOGPoster.png"
-                            alt="blog describing">
-                    </div>
-                </li>
-                <li class="card">
-                    <div class="card-content">
-                        <p class="caption">Tag</p>
-                        <h2 class="card-title"><a href="/blog/123123" rel="noopener noreferrer">This is the blog title and this is a long title this will take some space
-                        </a></h2>
-                        <p class="card-subtitle inter-400">This is the blog description and it is longer then the blog
-                            title</p>
-                        <p class="caption">24th Mar 2024 . 3 min . 783 Views</p>
-                    </div>
-                    <div class="card-image">
-                        <img class="card-image"
-                            src="/images/BlogWebOGPoster.png"
-                            alt="blog describing">
-                    </div>
-                </li>
-                <li class="card">
-                    <div class="card-content">
-                        <p class="caption">Tag</p>
-                        <h2 class="card-title"><a href="/blog/123123" rel="noopener noreferrer">This is the blog title and this is a long title this will take some space
-                        </a></h2>
-                        <p class="card-subtitle inter-400">This is the blog description and it is longer then the blog
-                            title</p>
-                        <p class="caption">24th Mar 2024 . 3 min . 783 Views</p>
-                    </div>
-                    <div class="card-image">
-                        <img class="card-image"
-                            src="https://cdn.jsdelivr.net/gh/rishi-singh26/Portfolio/assets/WebOGPoster.png"
-                            alt="blog describing">
-                    </div>
-                </li>
-                <li class="card">
-                    <div class="card-content">
-                        <p class="caption">Tag</p>
-                        <h2 class="card-title"><a href="/blog/123123" rel="noopener noreferrer">This is the blog title and this is a long title this will take some space
-                        </a></h2>
-                        <p class="card-subtitle inter-400">This is the blog description and it is longer then the blog
-                            title</p>
-                        <p class="caption">24th Mar 2024 . 3 min . 783 Views</p>
-                    </div>
-                    <div class="card-image">
-                        <img class="card-image"
-                            src="/images/BlogWebOGPoster.png"
-                            alt="blog describing">
-                    </div>
-                </li>
-                <li class="card">
-                    <div class="card-content">
-                        <p class="caption">Tag</p>
-                        <h2 class="card-title"><a href="/blog/123123" rel="noopener noreferrer">This is the blog title and this is a long title this will take some space
-                        </a></h2>
-                        <p class="card-subtitle inter-400">This is the blog description and it is longer then the blog
-                            title</p>
-                        <p class="caption">24th Mar 2024 . 3 min . 783 Views</p>
-                    </div>
-                    <div class="card-image">
-                        <img class="card-image"
-                            src="https://cdn.jsdelivr.net/gh/rishi-singh26/Portfolio/assets/WebOGPoster.png"
-                            alt="blog describing">
-                    </div>
-                </li>
-                <li class="card">
-                    <div class="card-content">
-                        <p class="caption">Tag</p>
-                        <h2 class="card-title"><a href="/blog/123123" rel="noopener noreferrer">This is the blog title and this is a long title this will take some space
-                        </a></h2>
-                        <p class="card-subtitle inter-400">This is the blog description and it is longer then the blog
-                            title</p>
-                        <p class="caption">24th Mar 2024 . 3 min . 783 Views</p>
-                    </div>
-                    <div class="card-image">
-                        <img class="card-image"
-                            src="/images/BlogWebOGPoster.png"
-                            alt="blog describing">
-                    </div>
-                </li>
-                <li class="card">
-                    <div class="card-content">
-                        <p class="caption">Tag</p>
-                        <h2 class="card-title"><a href="/blog/123123" rel="noopener noreferrer">This is the blog title and this is a long title this will take some space
-                        </a></h2>
-                        <p class="card-subtitle inter-400">This is the blog description and it is longer then the blog
-                            title</p>
-                        <p class="caption">24th Mar 2024 . 3 min . 783 Views</p>
-                    </div>
-                    <div class="card-image">
-                        <img class="card-image"
-                            src="https://cdn.jsdelivr.net/gh/rishi-singh26/Portfolio/assets/WebOGPoster.png"
-                            alt="blog describing">
-                    </div>
-                </li>
-                <li class="card">
-                    <div class="card-content">
-                        <p class="caption">Tag</p>
-                        <h2 class="card-title"><a href="/blog/123123" rel="noopener noreferrer">This is the blog title and this is a long title this will take some space
-                        </a></h2>
-                        <p class="card-subtitle inter-400">This is the blog description and it is longer then the blog
-                            title</p>
-                        <p class="caption">24th Mar 2024 . 3 min . 783 Views</p>
-                    </div>
-                    <div class="card-image">
-                        <img class="card-image"
-                            src="/images/BlogWebOGPoster.png"
-                            alt="blog describing">
-                    </div>
-                </li>
+                <% for (let blog of blogs) { %>
+                    <li class="card" itemscope itemtype ="https://schema.org/TechArticle">
+                        <div class="card-content">
+                            <p class="caption"><%= blog.tags %></p>
+                            <h2 class="card-title"><a href="/<%= blog.id %>" rel="noopener noreferrer" itemprop="title">
+                                <%= blog.title %>
+                            </a></h2>
+                            <p class="card-subtitle inter-400"><%= blog.description %></p>
+                            <p class="caption"><%= blog.createdAt %> . 7 min . <%= blog.views %> Views</p>
+                        </div>
+                        <div class="card-image">
+                            <img class="card-image" src="<%= blog.thumbnailUrl %>" alt="blog thumbnail">
+                        </div>
+                    </li>
+                <% } %>
             </ul>
         </div>
     </main>

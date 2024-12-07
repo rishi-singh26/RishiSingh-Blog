@@ -13,6 +13,8 @@ import Blog from "./models/blog";
 import User from "./models/user";
 import Token from "./models/token";
 
+import * as errorController from './controllers/error';
+
 import sequelize from "./util/database";
 import { fileFilter, fileStorage } from "./util/file";
 import { CustomResponse } from "./util/custom_response";
@@ -37,7 +39,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use("/blog", blogRoutes);
 app.use("/auth", authRoutes);
+app.get('/500', errorController.get500);
+app.use('/404', errorController.get404);
 app.use("/", indexRoutes);
+app.use(errorController.get404);
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     if (error instanceof CustomResponse) {

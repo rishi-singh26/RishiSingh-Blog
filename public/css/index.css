@@ -1,5 +1,11 @@
 @import url(./_main.css);
 
+.canvas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .hero {
     display: flex;
     flex-direction: column;
@@ -141,6 +147,10 @@
             }
         }
     }
+}
+
+.green-text {
+    color: var(--dark-accent-color);
 }
 
 @media (max-width: 1660px) {

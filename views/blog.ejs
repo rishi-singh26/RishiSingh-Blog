@@ -9,9 +9,17 @@
         <%- include('./includes/navigation.ejs') %>
         <!-- Container -->
         <div class="container inter-600 top-gap">
-            <ul class="padded-container">
-                <%- content %>
-            </ul>
+            <div class="padded-container">
+                <h1 class="title">This is the title</h1>
+                <div class="blog-info">
+                    <p class="author-detail">Rishi Singh</p>
+                    <p class="caption">Dec 12 2024 . 7 min . 371 Views</p>
+                </div>
+
+                <div class="blog-content">
+                    <%- content %>
+                </div>
+            </div>
         </div>
     </main>
     <!-- Footer -->

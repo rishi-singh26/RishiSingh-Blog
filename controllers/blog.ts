@@ -43,13 +43,13 @@ export const getBlogById = async (req: Request, res: Response, next: NextFunctio
     try {
         const blogId = req.params.blogId;
         if (!blogId) {
-            next(new CustomResponse({ message: 'BlogID not found', statusCode: StatusCodes.NOT_FOUND }));
+            return next(new CustomResponse({ message: 'BlogID not found', statusCode: StatusCodes.NOT_FOUND }));
         }
         const blog = await Blog.findByPk(blogId);
 
         // Handle error when blog not found
         if (!blog) {
-            next(new CustomResponse({ message: 'Blog not found', statusCode: StatusCodes.NOT_FOUND }));
+            return next(new CustomResponse({ message: 'Blog not found', statusCode: StatusCodes.NOT_FOUND }));
         }
         res.status(StatusCodes.OK).json(new CustomResponse({
             message: 'Blog featched successfully',
@@ -112,7 +112,7 @@ export const editPost = async (req: Request, res: Response, next: NextFunction) 
     try {
         const blogId = req.params.blogId;
         if (!blogId) {
-            next(new CustomResponse({ message: 'BlogID not found', statusCode: StatusCodes.NOT_FOUND }));
+            return next(new CustomResponse({ message: 'BlogID not found', statusCode: StatusCodes.NOT_FOUND }));
         }
 
         const validatedToken = req.body.validatedToken;
