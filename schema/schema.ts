@@ -16,6 +16,7 @@ export const blogSchema = z.object({
     description: z.string().max(256),
     canonicalUrl: z.string().max(256),
     isDraft: z.boolean({ message: 'Blog.draft can must be a boolean'}),
+    tags: z.string().min(1).max(128),
 });
 
 export const signupSchema: ZodEffects<ZodObject<any, any>> = z

@@ -74,8 +74,19 @@ export const createBlog = async (req: Request, res: Response, next: NextFunction
         const description = req.body.description;
         const draft = req.body.isDraft;
         const canonicalUrl = req.body.canonicalUrl;
+        const tags = req.body.tags;
 
-        const blog = { title, html, thumbnailUrl, description, userId: validatedToken.userId, draft, canonicalUrl, views: 0 };
+        const blog = {
+            title,
+            html,
+            thumbnailUrl,
+            description,
+            userId: validatedToken.userId,
+            draft,
+            canonicalUrl,
+            views: 0,
+            tags,
+        };
         const result = await Blog.create(blog)
         const user = await User.findByPk(validatedToken.userId);
         const response = new CustomResponse({
@@ -111,6 +122,7 @@ export const editPost = async (req: Request, res: Response, next: NextFunction) 
         const description = req.body.description;
         const draft = req.body.isDraft;
         const canonicalUrl = req.body.canonicalUrl;
+        const tags = req.body.tags;
 
         const result = await Blog.findByPk(req.params.postId)
         if (!result) {
@@ -127,7 +139,8 @@ export const editPost = async (req: Request, res: Response, next: NextFunction) 
             userId: validatedToken.userId,
             draft,
             canonicalUrl,
-            views: result.views
+            views: result.views,
+            tags: tags
         };
         const updatedResult = await result.update(blog);
         const response = new CustomResponse({

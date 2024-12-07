@@ -12,6 +12,7 @@ interface BlogAttributes {
     views: number;
     canonicalUrl: string;
     userId: string;
+    tags: string;
 }
 
 // Define optional attributes for creation
@@ -28,6 +29,7 @@ class Blog extends Model<BlogAttributes, BlogCreationAttributes> implements Blog
     public views!: number;
     public canonicalUrl!: string;
     public userId!: string;
+    public tags!: string;
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -69,6 +71,10 @@ Blog.init(
         canonicalUrl: {
             type: DataTypes.STRING(256),
             allowNull: true,
+        },
+        tags: {
+            type: DataTypes.STRING(128),
+            allowNull: false,
         },
         userId: {
             type: DataTypes.UUID,
