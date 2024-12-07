@@ -47,6 +47,10 @@
             flex-direction: column;
             gap: 30px;
             padding-top: 50px;
+
+            img {
+                border-radius: 6px;
+            }
         }
 
         .footer-container {

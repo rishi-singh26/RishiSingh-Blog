@@ -4,7 +4,7 @@ import { getUUIDV1 } from "./uuid";
 
 export const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        if (file.mimetype.includes("images")) {
+        if (file.mimetype.includes("image")) {
             cb(null, "public/images");
         } else if (file.mimetype.includes("pdf")) {
             cb(null, "public/pdfs");

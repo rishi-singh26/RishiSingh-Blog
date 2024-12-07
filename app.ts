@@ -14,6 +14,7 @@ import User from "./models/user";
 import Token from "./models/token";
 
 import * as errorController from './controllers/error';
+import { uploadFile } from "./controllers/file";
 
 import sequelize from "./util/database";
 import { fileFilter, fileStorage } from "./util/file";
@@ -24,7 +25,7 @@ import SocketIO from './socket';
 const app = express();
 
 app.use(bodyParser.json()); // application/json
-app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single("image"));
+app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single("file"));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "ejs");
@@ -37,6 +38,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
+app.post('/upload-file', uploadFile)
 app.use("/blog", blogRoutes);
 app.use("/auth", authRoutes);
 app.get('/500', errorController.get500);

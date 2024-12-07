@@ -1,3 +1,8 @@
 /node_modules
 /dist
 /.env
+
+# remove user generated files from public folder
+/public/images
+/public/files
+/public/pdfs
