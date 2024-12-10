@@ -64,7 +64,7 @@ User.hasOne(Token, { foreignKey: 'userId' });
 
 sequelize.sync()
     .then(() => {
-        const server = app.listen(3000);
+        const server = app.listen(process.env.PORT);
         const io = SocketIO.init(server);
         io.on('connection', socket => {
             console.log('client connected');

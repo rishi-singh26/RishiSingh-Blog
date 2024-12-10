@@ -10,14 +10,14 @@ const router = express.Router();
 router.delete(
     '/:blogId',
     validateAccessTokenSchema(accessTokenSchema, AUTH_TOKEN_SECRET),
-    BlogController.deletePost
+    BlogController.deleteBlog
 );
 
 router.put(
     '/:blogId',
     validateAccessTokenSchema(accessTokenSchema, AUTH_TOKEN_SECRET),
     validateSchema(blogSchema),
-    BlogController.editPost
+    BlogController.editBlog
 );
 
 router.get('/:blogId', BlogController.getBlogById); // blogId will be blog ((slug) + (12 character random id))

@@ -98,7 +98,7 @@ export const createBlog = async (req: Request, res: Response, next: NextFunction
                 user: { name: user && user.name ? user.name : '', id: user && user.id ? user.id : '' }
             }
         })
-        io.getIO().emit('posts', new SocketResponse('create', response.toJson()).toJson())
+        io.getIO().emit('blogs', new SocketResponse('create', response.toJson()).toJson())
         res.status(response.statusCode).json(response.toJson());
     } catch (error: any) {
         next(new CustomResponse({
@@ -108,7 +108,7 @@ export const createBlog = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-export const editPost = async (req: Request, res: Response, next: NextFunction) => {
+export const editBlog = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const blogId = req.params.blogId;
         if (!blogId) {
@@ -149,7 +149,7 @@ export const editPost = async (req: Request, res: Response, next: NextFunction) 
             data: { updatedResult },
             status: true,
         });
-        io.getIO().emit('posts', new SocketResponse('update', response.toJson()).toJson());
+        io.getIO().emit('blogs', new SocketResponse('update', response.toJson()).toJson());
         res.status(200).json({ post: updatedResult, message: 'Post updated successfully' });
     } catch (error: any) {
         next(new CustomResponse({
@@ -159,7 +159,7 @@ export const editPost = async (req: Request, res: Response, next: NextFunction) 
     }
 };
 
-export const deletePost = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteBlog = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const validatedToken = req.body.validatedToken;
         const result = await Blog.findByPk(req.params.postId);
@@ -171,7 +171,7 @@ export const deletePost = async (req: Request, res: Response, next: NextFunction
         }
         await result.destroy();
         const response = new CustomResponse({ message: 'Blog deleted', statusCode: StatusCodes.GONE, status: true });
-        io.getIO().emit('posts', new SocketResponse('create', response.toJson()).toJson());
+        io.getIO().emit('blogs', new SocketResponse('create', response.toJson()).toJson());
         res.status(410).json({ post: response.toJson(), message: 'Post deleted successfully' });
     } catch (error: any) {
         next(new CustomResponse({
