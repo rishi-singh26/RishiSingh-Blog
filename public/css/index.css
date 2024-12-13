@@ -403,3 +403,74 @@ a:hover {
     text-decoration: none;
     color: var(--black);
 }
+
+/* Scroll down animation */
+.scroll-down {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scroll-down .mouse {
+    width: 24px;
+    height: 40px;
+    border: 2px solid #000;
+    border-radius: 12px;
+    position: relative;
+    /* margin-bottom: 10px; */
+}
+
+.scroll-down .mouse .wheel {
+    width: 6px;
+    height: 6px;
+    background-color: #000;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll-wheel 1.5s infinite;
+}
+
+@keyframes scroll-wheel {
+    0%, 20% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, 10px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+}
+
+.scroll-down .arrow {
+    margin-top: -3px;
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid #535353;
+    border-bottom: 2px solid #535353;
+    transform: rotate(-45deg);
+    animation: bounce-arrow 1.5s infinite;
+}
+
+.scroll-down .arrow.second {
+    margin-top: -3px;
+    animation-delay: 0.5s;
+}
+
+@keyframes bounce-arrow {
+    0%, 20% {
+        transform: translateY(0) rotate(-45deg);
+    }
+    50% {
+        transform: translateY(5px) rotate(-45deg);
+    }
+    100% {
+        transform: translateY(0) rotate(-45deg);
+    }
+}
