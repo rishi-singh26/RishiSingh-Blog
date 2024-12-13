@@ -1,6 +1,7 @@
+import path from "path";
+
 import express, { NextFunction, Request, Response } from "express";
 import multer from "multer";
-import path from "path";
 import bodyParser from "body-parser";
 
 import 'dotenv/config'
@@ -25,11 +26,12 @@ import SocketIO from './socket';
 const app = express();
 
 app.use(bodyParser.json()); // application/json
-app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single("file"));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('file'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'build'))); // make the build of admin react app publically available
 
-app.set("view engine", "ejs");
-app.set("views", "views");
+app.set('view engine', 'ejs');
+app.set('views', 'views');
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -39,12 +41,22 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.post('/upload-file', uploadFile)
-app.use("/blog", blogRoutes);
-app.use("/auth", authRoutes);
+app.use('/blog', blogRoutes);
+app.use('/auth', authRoutes);
+app.get('/admin', (req: Request, res: Response, next: NextFunction) => {
+    if (/(.ico|.js|.css|.jpg|.jpeg|.png|.map|.json|.txt|.pdf)$/i.test(req.path)) {
+        next(); // Serve static files as usual
+    } else {
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header('Expires', '-1');
+        res.header('Pragma', 'no-cache');
+        res.sendFile(path.join(__dirname, 'build', 'app.html')); // Serve React app
+    }
+});
 app.get('/500', errorController.get500);
-app.use('/404', errorController.get404);
-app.use("/", indexRoutes);
-app.use(errorController.get404);
+app.get('/404', errorController.get404);
+app.use('/', indexRoutes);
+app.use(errorController.get404); // any unknown route => show 404
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     if (error instanceof CustomResponse) {

@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && cp -R public dist && node dist/app.js"
+    "start": "tsc && cp -R public dist && cp -R admin-app/build dist && mv dist/build/index.html dist/build/app.html && node dist/app.js",
+    "install-client": "cd admin-app && npm install && cd ..",
+    "build-client": "cd admin-app && npm run build && cd ..",
+    "dev": "npm run build-client && npm start"
   },
   "author": "Rishi Singh",
   "license": "ISC",
