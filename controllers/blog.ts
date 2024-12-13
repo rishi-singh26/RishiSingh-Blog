@@ -10,13 +10,13 @@ import { SocketResponse } from '../util/socket_response';
 
 export const getBlogs = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        type QueryParams = { page: string | undefined, size: string | undefined };
-        const { page = '1', size = '80' } = req.query as QueryParams; // Defaults: page 1, size 80
+        type QueryParams = { page: string | undefined, size: string | undefined, draft: string | undefined };
+        const { page = '1', size = '80', draft = '' } = req.query as QueryParams; // Defaults: page 1, size 80
         const limit = parseInt(size); // Number of records per page
         const offset = (parseInt(page) - 1) * limit; // Skip records
 
         const { count, rows: blogs } = await Blog.findAndCountAll({
-            where: { draft: false },
+            where: { draft: draft === 'true' },
             include: { model: User, attributes: ['name', 'id'] },
             limit, // Limit the number of records
             offset, // Skip the appropriate number of records
@@ -94,8 +94,8 @@ export const createBlog = async (req: Request, res: Response, next: NextFunction
             statusCode: StatusCodes.CREATED,
             status: true,
             data: {
-                blog: structuredClone(result.dataValues),
-                user: { name: user && user.name ? user.name : '', id: user && user.id ? user.id : '' }
+                ...structuredClone(result.dataValues),
+                User: { name: user && user.name ? user.name : '', id: user && user.id ? user.id : '' }
             }
         })
         io.getIO().emit('blogs', new SocketResponse('create', response.toJson()).toJson())
@@ -162,7 +162,7 @@ export const editBlog = async (req: Request, res: Response, next: NextFunction) 
 export const deleteBlog = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const validatedToken = req.body.validatedToken;
-        const result = await Blog.findByPk(req.params.postId);
+        const result = await Blog.findByPk(req.params.blogId);
         if (!result) {
             return next(new CustomResponse({ message: 'Blog not found', statusCode: StatusCodes.NOT_FOUND }));
         }
@@ -170,9 +170,14 @@ export const deleteBlog = async (req: Request, res: Response, next: NextFunction
             return next(new CustomResponse({ message: 'Unauthorized', statusCode: StatusCodes.FORBIDDEN }));
         }
         await result.destroy();
-        const response = new CustomResponse({ message: 'Blog deleted', statusCode: StatusCodes.GONE, status: true });
-        io.getIO().emit('blogs', new SocketResponse('create', response.toJson()).toJson());
-        res.status(410).json({ post: response.toJson(), message: 'Post deleted successfully' });
+        const response = new CustomResponse({
+            message: 'Blog deleted',
+            statusCode: StatusCodes.GONE,
+            status: true,
+            data: structuredClone(result.dataValues),
+        });
+        io.getIO().emit('blogs', new SocketResponse('delete', response.toJson()).toJson());
+        res.status(StatusCodes.GONE).json(response.toJson());
     } catch (error: any) {
         next(new CustomResponse({
             message: error.message,
