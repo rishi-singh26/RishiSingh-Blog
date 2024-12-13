@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user";
-import Token from "../models/token";
+// import Token from "../models/token";
 import { AUTH_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../util/constants";
 import { NextFunction, Response, Request } from "express";
 import { CustomResponse } from "../util/custom_response";
@@ -52,7 +52,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         const accessToken = createAccessToken(user.email, user.id.toString());
         const refreshToken = createRefreshToken(user.id.toString());
         // create a new access and refresh token for each login
-        await Token.create({ refreshToken, accessToken, userId: user.id });
+        // await Token.create({ refreshToken, accessToken, userId: user.id });
         res.status(StatusCodes.OK).json(new CustomResponse({
             message: 'Login successful',
             statusCode: StatusCodes.OK,
@@ -73,18 +73,18 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
         const refreshToken = req.body.refreshToken;
         const parsedRefreshToken = req.body.validatedToken;
         // find if the same token is present in the database or not
-        const existingTokenData: Token | null = await Token.findOne({
-            where: { userId: parsedRefreshToken.userId, refreshToken },
-        });
-        // validate if there is no entry for this userId and refreshToken in DB
-        if (!existingTokenData || (existingTokenData.refreshToken !== refreshToken)) {
-            next(new CustomResponse({
-                message: "Invalid refresh token",
-                statusCode: StatusCodes.FORBIDDEN,
-                status: false,
-            }));
-            return;
-        }
+        // const existingTokenData: Token | null = await Token.findOne({
+        //     where: { userId: parsedRefreshToken.userId, refreshToken },
+        // });
+        // // validate if there is no entry for this userId and refreshToken in DB
+        // if (!existingTokenData || (existingTokenData.refreshToken !== refreshToken)) {
+        //     next(new CustomResponse({
+        //         message: "Invalid refresh token",
+        //         statusCode: StatusCodes.FORBIDDEN,
+        //         status: false,
+        //     }));
+        //     return;
+        // }
         // Verify that a user for this refresh token exists
         const user = await User.findByPk(parsedRefreshToken.userId);
         if (!user) {
@@ -98,7 +98,7 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
         const accessToken = createAccessToken(user.email, user.id.toString());
         const newRefreshToken = createRefreshToken(user.id.toString());
         // Update the existing tokens for the user session
-        await existingTokenData.update({ refreshToken: newRefreshToken, accessToken });
+        // await existingTokenData.update({ refreshToken: newRefreshToken, accessToken });
         res.status(StatusCodes.OK).json(new CustomResponse({
             message: "Success",
             statusCode: StatusCodes.OK,
@@ -157,16 +157,16 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
 
 export const logout = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const refreshToken = req.body.refreshToken;
-        const validatedToken = req.body.validatedToken;
-        const existingTokenData = await Token.findOne({
-            where: { userId: validatedToken.userId, refreshToken },
-        });
+        // const refreshToken = req.body.refreshToken;
+        // const validatedToken = req.body.validatedToken;
+        // const existingTokenData = await Token.findOne({
+        //     where: { userId: validatedToken.userId, refreshToken },
+        // });
         let statusCode = StatusCodes.OK;
-        if (existingTokenData) {
-            await existingTokenData.destroy();
-            statusCode = StatusCodes.GONE;
-        }
+        // if (existingTokenData) {
+        //     await existingTokenData.destroy();
+        //     statusCode = StatusCodes.GONE;
+        // }
         res.status(statusCode).json(new CustomResponse({
             message: "Logged Out",
             statusCode: statusCode,
