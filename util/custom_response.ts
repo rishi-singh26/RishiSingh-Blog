@@ -27,6 +27,7 @@ export class CustomResponse extends Error {
       statusCode: this.statusCode,
       errorPath: this.errorPath,
       data: this.data,
+      status: this.status,
     }
   }
 }

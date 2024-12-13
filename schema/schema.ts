@@ -15,7 +15,7 @@ export const blogSchema = z.object({
     thumbnailUrl: z.string().max(128), // /images/BlogWebOGPoster.png
     description: z.string().max(256),
     canonicalUrl: z.string().max(256),
-    isDraft: z.boolean({ message: 'Blog.draft can must be a boolean'}),
+    isDraft: z.boolean({ message: 'Blog.isDraft can must be a boolean'}),
     tags: z.string().min(1).max(128),
 });
 
