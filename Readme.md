@@ -53,26 +53,33 @@ RishiSingh-Blog/
 ```
 
 ## Scripts
+In the production environment use the `build-prod` command to build the application and `start` command to start.
+While running in local, assuming that `node_modules` have been installed for both node and react application, use the  `start-dev` command.
 
 ```JSON
 "scripts": {
   "test": "echo \"Error: no test specified\" && exit 1",
-  "start-server": "tsc && cp -R public dist && cp -R admin-app/build dist && mv dist/build/index.html dist/build/app.html && node dist/app.js",
+  "start": "node dist/app.js",
+  "start-dev": "npm run build-dev && npm start",
   "install-client": "cd admin-app && npm install && cd ..",
   "build-client": "cd admin-app && npm run build && cd ..",
-  "dev": "npm run build-client && npm start",
-  "start": "npm run install-client && npm run build-client && npm start"
+  "build-dev": "npm run build-client && tsc && cp -R public dist && cp -R admin-app/build dist && mv dist/build/index.html dist/build/app.html",
+  "build-prod": "npm run install-client && npm run build-client && tsc && cp -R public dist && cp -R admin-app/build dist && mv dist/build/index.html dist/build/app.html"
 }
 ```
 
-### `start-server`
+### `start`
 | Command | Description |
 |---------|-------------|
-| `tsc`    | Transpile all `ts` code to `js` and place the output to `/dist` folder. |
-| `cp -R public dist` | Move the `public` folder to the `dist` folder. |
-| `cp -R admin-app/build dist` | Move the build folder at `/admin-app/build` to `/dist/build`. |
-| `mv dist/build/index.html dist/build/app.html` | Rename `dist/build/index.html` to `dist/build/app.html`. |
 | `node dist/app.js` | Execute the `app.js` file with node. |
+
+
+### `start-dev`
+| Command | Description |
+|---------|-------------|
+| `npm run build` | Build the react application for production |
+| `node dist/app.js` | Execute the `app.js` file with node. |
+
 
 ### `install-client`
 | Command | Description |
@@ -90,15 +97,23 @@ RishiSingh-Blog/
 | `cd ..` | Move back to root directory |
 
 
-### `dev`
+### `build-dev`
 | Command | Description |
 |---------|-------------|
 | `npm run build-client` | Run the `build-client` script |
-| `npm run start-server` | Run the `start-server` script |
+| `tsc`    | Transpile all `ts` code to `js` and place the output to `/dist` folder. |
+| `cp -R public dist` | Move the `public` folder to the `dist` folder. |
+| `cp -R admin-app/build dist` | Move the build folder at `/admin-app/build` to `/dist/build`. |
+| `mv dist/build/index.html dist/build/app.html` | Rename `dist/build/index.html` to `dist/build/app.html`. |
 
-### `start`
+
+### `build-prod`
 | Command | Description |
 |---------|-------------|
+| `npm install` | Install the node modules for nodejs application |
 | `npm run install-client` | Run the `install-client` script |
 | `npm run build-client` | Run the `build-client` script |
-| `npm run start-server` | Run the `start-server` script |
+| `tsc` | Transpile all `ts` code to `js` and place the output to `/dist` folder. |
+| `cp -R public dist` | Move the `public` folder to the `dist` folder. |
+| `cp -R admin-app/build dist` | Move the build folder at `/admin-app/build` to `/dist/build`. |
+| `mv dist/build/index.html dist/build/app.html` | Rename `dist/build/index.html` to `dist/build/app.html`. |

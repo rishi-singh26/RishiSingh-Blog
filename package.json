@@ -5,11 +5,12 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-server": "tsc && cp -R public dist && cp -R admin-app/build dist && mv dist/build/index.html dist/build/app.html && node dist/app.js",
+    "start": "node dist/app.js",
+    "start-dev": "npm run build-dev && npm start",
     "install-client": "cd admin-app && npm install && cd ..",
     "build-client": "cd admin-app && npm run build && cd ..",
-    "dev": "npm run build-client && npm run start-server",
-    "start": "npm run install-client && npm run build-client && npm run start-server"
+    "build-dev": "npm run build-client && tsc && cp -R public dist && cp -R admin-app/build dist && mv dist/build/index.html dist/build/app.html",
+    "build-prod": "npm install && npm run install-client && npm run build-client && tsc && cp -R public dist && cp -R admin-app/build dist && mv dist/build/index.html dist/build/app.html"
   },
   "author": "Rishi Singh",
   "license": "ISC",
