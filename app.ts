@@ -1,8 +1,10 @@
 import path from "path";
+import fs from 'fs';
 
 import express, { NextFunction, Request, Response } from "express";
 import multer from "multer";
 import bodyParser from "body-parser";
+import morgan from 'morgan';
 
 import 'dotenv/config'
 
@@ -25,6 +27,9 @@ import SocketIO from './socket';
 
 const app = express();
 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+app.use(morgan('combined', { stream: accessLogStream }));
 app.use(bodyParser.json()); // application/json
 app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('file'));
 app.use(express.static(path.join(__dirname, 'public')));
