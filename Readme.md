@@ -65,16 +65,16 @@ RishiSingh-Blog/
   },
 ```
 
-### "start"
+### `start`
 | Command | Description |
 |---------|-------------|
 | `tsc`    | Transpile all `ts` code to `js` and place the output to `/dist` folder. |
-| `cp -R public dist && cp -R admin-app/build dist` | Move the `public` folder to the `dist` folder. |
+| `cp -R public dist` | Move the `public` folder to the `dist` folder. |
 | `cp -R admin-app/build dist` | Move the build folder at `/admin-app/build` to `/dist/build`. |
 | `mv dist/build/index.html dist/build/app.html` | Rename `dist/build/index.html` to `dist/build/app.html`. |
 | `node dist/app.js` | Execute the `app.js` file with node. |
 
-### "install-client"
+### `install-client`
 | Command | Description |
 |---------|-------------|
 | `cd admin-app` | Go to the `admin-app` diractory |
@@ -82,7 +82,7 @@ RishiSingh-Blog/
 | `cd ..` | Move back to root directory |
 
 
-### "build-client"
+### `build-client`
 | Command | Description |
 |---------|-------------|
 | `cd admin-app` | Go to the `admin-app` diractory |
@@ -90,13 +90,13 @@ RishiSingh-Blog/
 | `cd ..` | Move back to root directory |
 
 
-### "dev"
+### `dev`
 | Command | Description |
 |---------|-------------|
 | `npm run build-client` | Run the `build-client` script |
 | `npm start` | Run the `start` script |
 
-### "prod"
+### `prod`
 | Command | Description |
 |---------|-------------|
 | `npm run install-client` | Run the `install-client` script |
