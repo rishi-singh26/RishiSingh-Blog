@@ -124,7 +124,7 @@ export const editBlog = async (req: Request, res: Response, next: NextFunction) 
         const canonicalUrl = req.body.canonicalUrl;
         const tags = req.body.tags;
 
-        const result = await Blog.findByPk(req.params.postId)
+        const result = await Blog.findByPk(blogId)
         if (!result) {
             return next(new CustomResponse({ message: 'Blog not found', statusCode: StatusCodes.NOT_FOUND }));
         }

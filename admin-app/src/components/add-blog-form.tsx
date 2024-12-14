@@ -11,6 +11,7 @@ import { Textarea } from "./ui/textarea"
 import { Switch } from "./ui/switch"
 import { Label } from "./ui/label"
 import { useNavigate } from "react-router-dom"
+import { StatusCodes } from "http-status-codes"
 
 export function AddBlogForm({ editing }: { editing?: boolean }) {
     const selectedBlog = useFeedStore(state => state.selectedBlog);
@@ -40,7 +41,7 @@ export function AddBlogForm({ editing }: { editing?: boolean }) {
     })
 
     const addBlog = async (values: z.infer<typeof addBlogSchema>) => {
-        if (!accessToken || !selectedBlog) {
+        if (!accessToken) {
             return;
         }
         let url = 'http://localhost:8080/blog';
@@ -49,10 +50,10 @@ export function AddBlogForm({ editing }: { editing?: boolean }) {
         }
         const response = await fetch(url, {
             headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-            method: "POST",
+            method: editing ? "PUT" : "POST",
             body: JSON.stringify(values),
         });
-        if (response.status === 201) {
+        if (response.status === StatusCodes.CREATED || response.status === StatusCodes.OK) {
             navigateBack();
         }
     }
@@ -177,7 +178,7 @@ export function AddBlogForm({ editing }: { editing?: boolean }) {
                 />
                 <div className="flex justify-end gap-2">
                     <Button onClick={navigateBack} type="button" variant="secondary">Cancel</Button>
-                    <Button type="submit">Add Blog</Button>
+                    <Button type="submit">{editing ? 'Update' : 'Add Blog'}</Button>
                 </div>
             </form>
         </Form>
