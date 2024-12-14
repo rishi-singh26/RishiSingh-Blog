@@ -26,10 +26,10 @@ router.post('/refresh',
     authController.refresh,
 );
 
-router.post('/signup',
-    validateSchema(signupSchema),
-    authController.signup,
-);
+// router.post('/signup',
+//     validateSchema(signupSchema),
+//     authController.signup,
+// );
 
 router.post('/logout',
     validateSchema(logoutSchema),
