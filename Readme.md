@@ -69,8 +69,8 @@ RishiSingh-Blog/
 | Command | Description |
 |---------|-------------|
 | `tsc`    | Transpile all `ts` code to `js` and place the output to `/dist` folder. |
-| `cp -R public dist && cp -R admin-app/build dist` | Move the public folder to the dist folder. |
-| `cp -R admin-app/build dist` | Move the build folder in `/admin-app/build` to `/dist/build`. |
+| `cp -R public dist && cp -R admin-app/build dist` | Move the `public` folder to the `dist` folder. |
+| `cp -R admin-app/build dist` | Move the build folder at `/admin-app/build` to `/dist/build`. |
 | `mv dist/build/index.html dist/build/app.html` | Rename `dist/build/index.html` to `dist/build/app.html`. |
 | `node dist/app.js` | Execute the `app.js` file with node. |
 
@@ -78,7 +78,7 @@ RishiSingh-Blog/
 | Command | Description |
 |---------|-------------|
 | `cd admin-app` | Go to the `admin-app` diractory |
-| `npm install` | run the `npm install` command to install the node modules for the react application |
+| `npm install` | Run the `npm install` command to install the node modules for the react application |
 | `cd ..` | Move back to root directory |
 
 
@@ -86,7 +86,7 @@ RishiSingh-Blog/
 | Command | Description |
 |---------|-------------|
 | `cd admin-app` | Go to the `admin-app` diractory |
-| `npm run build` | build the react application for production |
+| `npm run build` | Build the react application for production |
 | `cd ..` | Move back to root directory |
 
 
