@@ -459,8 +459,8 @@ a:hover {
 }
 
 .scroll-down .arrow.second {
-    margin-top: -3px;
-    animation-delay: 0.5s;
+    margin-top: -5px;
+    /* animation-delay: 0.5s; */
 }
 
 @keyframes bounce-arrow {
