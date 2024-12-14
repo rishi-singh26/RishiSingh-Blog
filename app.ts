@@ -11,6 +11,7 @@ import 'dotenv/config'
 import indexRoutes from "./routes/index";
 import authRoutes from "./routes/auth";
 import blogRoutes from "./routes/blog";
+import fileRoutes from "./routes/files";
 
 import Blog from "./models/blog";
 import User from "./models/user";
@@ -45,7 +46,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
-app.post('/upload-file', uploadFile)
+app.use('/upload-file', fileRoutes)
 app.use('/blog', blogRoutes);
 app.use('/auth', authRoutes);
 app.get('/admin', (req: Request, res: Response, next: NextFunction) => {
