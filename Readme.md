@@ -56,16 +56,16 @@ RishiSingh-Blog/
 
 ```JSON
 "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && cp -R public dist && cp -R admin-app/build dist && mv dist/build/index.html dist/build/app.html && node dist/app.js",
-    "install-client": "cd admin-app && npm install && cd ..",
-    "build-client": "cd admin-app && npm run build && cd ..",
-    "dev": "npm run build-client && npm start",
-    "prod": "npm run install-client && npm run build-client && npm start"
-  },
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start-server": "tsc && cp -R public dist && cp -R admin-app/build dist && mv dist/build/index.html dist/build/app.html && node dist/app.js",
+  "install-client": "cd admin-app && npm install && cd ..",
+  "build-client": "cd admin-app && npm run build && cd ..",
+  "dev": "npm run build-client && npm start",
+  "start": "npm run install-client && npm run build-client && npm start"
+}
 ```
 
-### `start`
+### `start-server`
 | Command | Description |
 |---------|-------------|
 | `tsc`    | Transpile all `ts` code to `js` and place the output to `/dist` folder. |
@@ -94,11 +94,11 @@ RishiSingh-Blog/
 | Command | Description |
 |---------|-------------|
 | `npm run build-client` | Run the `build-client` script |
-| `npm start` | Run the `start` script |
+| `npm run start-server` | Run the `start-server` script |
 
-### `prod`
+### `start`
 | Command | Description |
 |---------|-------------|
 | `npm run install-client` | Run the `install-client` script |
 | `npm run build-client` | Run the `build-client` script |
-| `npm start` | Run the `start` script |
+| `npm run start-server` | Run the `start-server` script |
