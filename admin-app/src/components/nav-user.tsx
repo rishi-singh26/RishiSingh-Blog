@@ -38,7 +38,7 @@ export function NavUser() {
       if (!refreshToken || !val) {
         return false;
       }
-      const response = await fetch('http://localhost:8080/auth/logout', {
+      const response = await fetch('/auth/logout', {
         headers: { 'Content-Type': 'application/json' },
         method: "POST",
         body: JSON.stringify({ refreshToken })

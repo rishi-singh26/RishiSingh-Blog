@@ -36,7 +36,7 @@ export default function BlogFeed() {
 
   useEffect(() => {
     getFeedList();
-    const socket = openSocket('http://localhost:8080')
+    const socket = openSocket('/')
     socket.on('blogs', (data) => {
       if ((data.result.data as Blog).draft !== showDrafts) {
         return;

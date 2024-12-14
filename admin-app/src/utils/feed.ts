@@ -3,7 +3,7 @@ import { Blog } from "../types/blog";
 
 export const getFeed = async (token: string, showDraft: boolean, pageNum: number = 1): Promise<{ blogs: Blog[], pagination: PaginationData | null }> => {
     try {
-        const response = await fetch(`http://localhost:8080/blog?page=${pageNum}&draft=${showDraft}`, {
+        const response = await fetch(`/blog?page=${pageNum}&draft=${showDraft}`, {
             headers: { Authorization: `Bearer ${token}`}
         });
         const json = await response.json();

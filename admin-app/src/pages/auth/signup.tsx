@@ -28,7 +28,7 @@ function Login() {
 
     const signUp = async (values: z.infer<typeof signupSchema>) => {
         try {
-            let url = 'http://localhost:8080/auth/signup';
+            let url = '/auth/signup';
             const response = await fetch(url, {
                 method: "POST",
                 body: JSON.stringify(values),

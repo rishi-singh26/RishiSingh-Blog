@@ -23,7 +23,7 @@ function Login() {
 
     const login = async (values: z.infer<typeof loginSchema>) => {
         try {
-            let url = 'http://localhost:8080/auth/login';
+            let url = '/auth/login';
             const response = await fetch(url, {
                 method: "POST",
                 body: JSON.stringify(values),

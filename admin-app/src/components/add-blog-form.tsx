@@ -44,9 +44,9 @@ export function AddBlogForm({ editing }: { editing?: boolean }) {
         if (!accessToken) {
             return;
         }
-        let url = 'http://localhost:8080/blog';
+        let url = '/blog';
         if (editing && selectedBlog) {
-            url = `http://localhost:8080/blog/${selectedBlog.id}`;
+            url = `/blog/${selectedBlog.id}`;
         }
         const response = await fetch(url, {
             headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },

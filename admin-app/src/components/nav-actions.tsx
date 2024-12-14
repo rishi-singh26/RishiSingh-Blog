@@ -108,7 +108,7 @@ export function NavActions() {
       if (!val || !selectedBlog || !accessToken) {
         return;
       }
-      const url = `http://localhost:8080/blog/${selectedBlog.id}`;
+      const url = `/blog/${selectedBlog.id}`;
       await fetch(url, {
         headers: { Authorization: `Bearer ${accessToken}` },
         method: "DELETE",

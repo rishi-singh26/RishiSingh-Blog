@@ -18,7 +18,7 @@ export function BlogDetail() {
             </CardHeader>
             <CardContent>
                 <div className="flex w-full align-middle">
-                    <img src={`http://localhost:8080/${selectedBlog.thumbnailUrl}`} alt={selectedBlog.title} />
+                    <img src={`${selectedBlog.thumbnailUrl}`} alt={selectedBlog.title} />
                 </div>
                 <SanitizedHtmlComponent htmlString={selectedBlog.html}></SanitizedHtmlComponent>
             </CardContent>
