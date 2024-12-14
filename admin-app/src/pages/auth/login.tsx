@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from 'zod';
 
@@ -92,12 +92,12 @@ function Login() {
                             </Button> */}
                         </form>
                     </Form>
-                    <div className="mt-4 text-center text-sm">
+                    {/* <div className="mt-4 text-center text-sm">
                         Don&apos;t have an account?{" "}
                         <Link to="/signup" className="underline">
                             Sign up
                         </Link>
-                    </div>
+                    </div> */}
                 </CardContent>
             </Card>
         </div>
